@@ -1,0 +1,42 @@
+#canvas
+{
+    background-color:#30c0df;
+    border: 2px solid black;
+    display: block;
+    margin: auto;
+    padding: auto;
+
+    width: min(95vw, 600px);
+    height: auto;
+    aspect-ratio: 276/414;
+    image-rendering: auto;
+}
+
+.layout {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 16px auto;
+  max-width: min(1100px, 95vw);
+}
+
+.game-col { position: relative; }
+
+#sidebar { flex: 0 0 320px; }      /* poster column width */
+#poster {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 2px solid #000;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+/* Stack on small screens */
+@media (max-width: 900px) {
+  .layout { flex-direction: column; align-items: center; }
+  #sidebar { width: min(90vw, 400px); }
+}
+
+/* Hide poster in fullscreen (see JS below) */
+body.fs-active #sidebar { display: none; }
