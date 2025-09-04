@@ -75,6 +75,13 @@ body.fs-active #sidebar { display: none; }
 }
 .legend-row{ margin-top: 2px; }
 
+body {
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(0, 255, 17, 0.598), transparent 60%),
+    radial-gradient(1000px 500px at 90% 20%, rgba(234, 255, 2, 0.485), transparent 60%),
+    #1d80aa;
+}
+
 /* Cyberpunk theme toggle for Tetris */
 body.cyberpunk{
   background:
