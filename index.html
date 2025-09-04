@@ -93,7 +93,7 @@
       const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable || t.tagName === 'SELECT');
       if (!typing) {
         e.preventDefault();
-        e.stopPropagation();   // extra belt & suspenders for Chrome
+
       }
     }
   };
