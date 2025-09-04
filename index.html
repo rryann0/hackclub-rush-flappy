@@ -79,6 +79,16 @@
     });
   });
 })();
+
+  document.addEventListener('keydown', (e) => {
+    const isNavKey = (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space' ||
+                      e.key === 'ArrowUp' || e.key === 'ArrowDown' ||
+                      e.key === 'ArrowLeft' || e.key === 'ArrowRight');
+    const t = e.target;
+    const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable || t.tagName === 'SELECT');
+    if (isNavKey && !typing) e.preventDefault();
+  }, { passive: false });
+  
 </script>
       </script>
     </div>
