@@ -80,26 +80,14 @@
   });
 })();
 
-(function () {
-  const blockKeyScroll = (e) => {
-    const k = e.key || e.code;
-    if (
-      k === ' ' || k === 'Space' || k === 'Spacebar' ||
-      k === 'ArrowUp' || k === 'ArrowDown' ||
-      k === 'ArrowLeft' || k === 'ArrowRight'
-    ) {
-      // If you have inputs, let typing work:
-      const t = e.target;
-      const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable || t.tagName === 'SELECT');
-      if (!typing) {
-        e.preventDefault();
-        e.stopPropagation();   // extra belt & suspenders for Chrome
-      }
-    }
-  };
-  // capture: true is the key for Chrome
-  window.addEventListener('keydown', blockKeyScroll, { capture: true });
-})();
+  document.addEventListener('keydown', (e) => {
+    const isNavKey = (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space' ||
+                      e.key === 'ArrowUp' || e.key === 'ArrowDown' ||
+                      e.key === 'ArrowLeft' || e.key === 'ArrowRight');
+    const t = e.target;
+    const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable || t.tagName === 'SELECT');
+    if (isNavKey && !typing) e.preventDefault();
+  }, { passive: false });
   
 </script>
       </script>
