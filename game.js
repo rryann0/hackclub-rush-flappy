@@ -105,7 +105,7 @@
     draw() { const y = H() - this.sprite.height; sctx.drawImage(this.sprite, this.x, y); }
   };
   const pipe = {
-    top: { sprite: new Image() }, bot: { sprite: new Image() }, gap: 95, moved: true, pipes: [],
+    top: { sprite: new Image() }, bot: { sprite: new Image() }, gap: 100, moved: true, pipes: [],
     draw() {
       for (let i = 0; i < this.pipes.length; i++) {
         let p = this.pipes[i];
