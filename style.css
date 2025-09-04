@@ -1,15 +1,16 @@
-#canvas
-{
-    background-color:#30c0df;
-    border: 2px solid black;
-    display: block;
-    margin: auto;
-    padding: auto;
 
-    width: min(95vw, 600px);
-    height: auto;
-    aspect-ratio: 276/414;
-    image-rendering: auto;
+/* Canvas keeps existing sizing + responsive behavior */
+#canvas{
+  background-color:#30c0df;
+  border: 2px solid black;
+  display: block;
+  margin: auto;
+  padding: auto;
+
+  width: min(95vw, 600px);
+  height: auto;
+  aspect-ratio: 276/414;
+  image-rendering: auto;
 }
 
 .layout {
@@ -30,6 +31,7 @@
   border-radius: 12px;
   border: 2px solid #000;
   box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  transition: opacity .25s ease;
 }
 
 /* Stack on small screens */
@@ -38,5 +40,64 @@
   #sidebar { width: min(90vw, 400px); }
 }
 
-/* Hide poster in fullscreen (see JS below) */
+/* Hide poster in fullscreen (reserved) */
 body.fs-active #sidebar { display: none; }
+
+/* New: controls bar */
+.controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.controls button{
+  font-family: "Squada One", system-ui, sans-serif;
+  font-size: 18px;
+  letter-spacing: .5px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 2px solid #000;
+  background: #ffe14a;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #000;
+  transition: transform .05s ease, box-shadow .05s ease, background .2s ease;
+}
+.controls button:active{
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #000;
+}
+.legend{
+  text-align:center;
+  font: 12px/1.2 "Squada One", system-ui, sans-serif;
+  margin: 6px 0 10px;
+  opacity: .8;
+}
+.legend-row{ margin-top: 2px; }
+
+/* Cyberpunk theme toggle for Tetris */
+body.cyberpunk{
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(255,0,204,0.12), transparent 60%),
+    radial-gradient(1000px 500px at 90% 20%, rgba(0,255,255,0.10), transparent 60%),
+    #0b0f1f;
+  color: #e6f7ff;
+}
+
+body.cyberpunk #poster {
+  opacity: .95;
+}
+
+body.cyberpunk #canvas{
+  border-color: rgba(0,255,255,.6);
+  box-shadow:
+    0 0 0 2px rgba(255,0,204,.25),
+    0 0 24px rgba(0,255,255,.25),
+    inset 0 0 24px rgba(255,0,255,.07);
+}
+body.cyberpunk .controls button{
+  background: linear-gradient(90deg, #00f0ff, #ff00cc);
+  color: white;
+  border-color: rgba(255,255,255,.7);
+  box-shadow: 0 4px 0 rgba(255,255,255,.5);
+}

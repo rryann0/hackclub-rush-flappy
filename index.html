@@ -1,25 +1,101 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JOIN HACK CLUB!</title>
-    <link rel="stylesheet" href="style.css" > 
-    <link href="https://fonts.googleapis.com/css?family=Squada+One&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JOIN HACK CLUB!</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Squada+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="layout">
-        <div class="game-col">
-            <canvas id="canvas" width="276" height="414"></canvas>
-            <script src="game.js"></script>
-        </div>
+  <div class="layout">
+    <div class="game-col">
+      <div class="controls">
+        <button id="switchBtn" aria-pressed="false" title="Switch between Flappy Bird and Cyberpunk Tetris">
+          Switch to TETRIS
+        </button>
+      </div>
+      <canvas id="canvas" width="276" height="414"></canvas>
+      <div class="legend" aria-hidden="true">
+        <div class="legend-row"><strong>TETRIS Keys</strong> — ⬅️ ➡️ move, ⬆️ rotate, ⬇️ soft drop, Space hard drop, P pause, R reset</div>
+      </div>
+      <script src="game.js"></script>
+      <script src="tetris.js"></script>
+      <script>
+        // Simple game switcher
+(function(){
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("switchBtn");
+    const poster = document.getElementById("poster");
+    const posterLink = document.getElementById("posterLink");
 
-        <aside id="sidebar">
-            <a href="https://southhighhack.hackclub.com" target="_blank" rel="noopener">
-                <img id="poster" src="poster.png" all="JOIN HACK CLUB!" loading="lazy">
-            </a>
-        </aside>
+    function swapPoster(mode /* 'flappy' | 'tetris' */) {
+      if (poster) {
+        const src = poster.dataset[mode + "Src"];   // data-flappy-src -> flappySrc
+        if (src) poster.src = src;
+        const alt = poster.dataset[mode + "Alt"];   // optional, if you add it
+        if (alt) poster.alt = alt;
+      }
+      if (posterLink) {
+        const href = posterLink.dataset[mode + "Href"]; // data-flappy-href -> flappyHref
+        if (href) posterLink.href = href;
+      }
+    }
+
+    // Preload Tetris poster once to avoid flicker
+    if (poster?.dataset?.tetrisSrc) {
+      const pre = new Image();
+      pre.src = poster.dataset.tetrisSrc;
+    }
+
+    function showFlappy(){
+      document.body.classList.remove("cyberpunk");
+      window.TetrisGame && window.TetrisGame.stop();
+      window.FlappyGame && window.FlappyGame.start();
+      swapPoster('flappy');
+      btn.textContent = "Switch to TETRIS";
+      btn.setAttribute("aria-pressed", "false");
+    }
+    function showTetris(){
+      document.body.classList.add("cyberpunk");
+      window.FlappyGame && window.FlappyGame.stop();
+      window.TetrisGame && window.TetrisGame.start();
+      swapPoster('tetris');
+      btn.textContent = "Switch to FLAPPY";
+      btn.setAttribute("aria-pressed", "true");
+    }
+
+    // Default to Flappy on load
+    if (window.FlappyGame && !window.FlappyGame.isActive()) showFlappy();
+
+    btn.addEventListener("click", () => {
+      if (window.FlappyGame && window.FlappyGame.isActive()) {
+        showTetris();
+      } else {
+        showFlappy();
+      }
+    });
+  });
+})();
+</script>
+      </script>
     </div>
+
+    <aside id="sidebar">
+        <a id="posterLink"
+          href="https://southhighhack.hackclub.com"
+          target="_blank" rel="noopener"
+          data-flappy-href="https://southhighhack.hackclub.com"
+          data-tetris-href="https://southhighhack.hackclub.com/">
+        <img id="poster"
+          src="poster.png"
+          loading="lazy"
+          data-flappy-src="poster.png"
+          data-tetris-src="retro_poster.png">
+        </a>
+    </aside>
+  </div>
 </body>
 </html>
